@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--Graph View of Session Model-->
+
+  <record id="view_session_graph" model="ir.ui.view">
+            <field name="name">openacademy.session.graph</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <graph string="Bar Chart">
+                    <field name="attendees_ids"/>
+                </graph>
+            </field>
+        </record>
+
+
+        <!--Calendar View of Session Model-->
+
+
+        <record id="view_session_calender" model="ir.ui.view">
+            <field name="name">openacademy.session.calendar</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <calendar string="Session" date_start="date">
+                    <field name="name"/>
+                    <field name="instructor_id"/>
+                </calendar>
+            </field>
+        </record>
+
+
+        <!--Search View of Session Model-->
+
+
+        <record id="view_session_search" model="ir.ui.view">
+            <field name="name">openacademy.session.search</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="duration"/>
+                    <field name="seats"/>
+                </search>
+            </field>
+        </record>
+
+
+        <!--Tree View of Session Model-->
+
+
+        <record id="view_session_tree" model="ir.ui.view">
+            <field name="name">openacademy.session.tree</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <tree string="Session" decoration-danger="date &lt; 'datetime.timedelta(days = 15)'"
+                      decoration-info="date &lt; 'datetime.timedelta(days = 5)'">
+                    <field name="instructor_id" domain="[('instructor','=',True)]"/>
+                    <field name="course_id"/>
+                    <field name="date"/>
+                    <field name="duration"/>
+                    <field name="seats"/>
+                    <field name="name"/>
+                    <field name="taken_seats" widget="progressbar"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!--Form View of Session Model-->
+
+
+        <record id="view_session_form" model="ir.ui.view">
+            <field name="name">openacademy.session.form</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <form String="Session">
+                    <sheet>
+                        <group>
+                            <field name="instructor_id" domain="[('instructor','=',True)]"/>
+                            <field name="course_id"/>
+                            <field name="date"/>
+                            <field name="duration"/>
+                            <field name="seats"/>
+                            <field name="name"/>
+                            <field name="taken_seats" widget="progressbar"/>
+                        </group>
+                        <notebook>
+                            <page String="Attendees">
+                                <field name="attendees_ids"/>"
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!--Action OF Session Model Menu-->
+
+
+        <record id="action_session_list" model="ir.actions.act_window">
+            <field name="name">Session</field>
+            <field name="res_model">openacademy.session</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+        </record>
+
+
+        <!-- Menu of Session Model-->
+
+
+        <menuitem id="openacademy_main_menu" name="Open Academy"/>
+        <menuitem id="openacademy_sub_menu" name="Open academy" parent="openacademy_main_menu"/>
+        <menuitem id="session_menu" name="Add Session" parent="openacademy_sub_menu" action="action_session_list"/>
+    </data>
+</odoo>

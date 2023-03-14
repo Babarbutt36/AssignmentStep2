@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+        <record model="openacademy.course" id="openacademy.course_add">
+            <field name="name">Social Science</field>
+             <field name="description">Introduction to social science</field>
+        </record>
+
+</odoo>

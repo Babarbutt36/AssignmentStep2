@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+         <!--Kanban View of Session Model-->
+
+
+        <record id="view_course_kanban" model="ir.ui.view">
+            <field name="name">openacademy.course.kanban</field>
+            <field name="model">openacademy.course</field>
+            <field name="arch" type="xml">
+                <kanban string="Course Kanban">
+                     <templates>
+                        <t t-name="kanban-box">
+                            <div>
+                                <field name="session_ids"/>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+
+        <!-- Search View of Course Model -->
+
+
+        <record model="ir.ui.view" id="course_search">
+            <field name="name">course.search</field>
+            <field name="model">openacademy.course</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <filter name="my_courses" string="My Courses"
+                            domain="[('resposible_id', '=', uid)]"/>
+                    <group string="Group by">
+                        <filter name="by_resposible" string="Resposible"
+                                context="{'group_by': 'resposible_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <!--Tree View of Course Model-->
+
+
+        <record model="ir.ui.view" id="course_tree_view">
+            <field name="name">openacademy.course.tree</field>
+            <field name="model">openacademy.course</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!--Form View of Course Model -->
+
+
+        <record model="ir.ui.view" id="course_form">
+            <field name="name">openacademy_course.form</field>
+            <field name="model">openacademy.course</field>
+            <field name="arch" type="xml">
+                <form String="Course">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="resposible_id"/>
+                        </group>
+                        <notebook>
+                            <page string="Sessions">
+                                <tree>
+                                    <field name="session_ids"/>
+                                </tree>
+                            </page>
+                            <page string="Description">
+                                <group>
+                                    <field name="description"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- Action of Course Model Menu -->
+
+
+        <record model="ir.actions.act_window" id="action_list_courses">
+            <field name="name">Course</field>
+            <field name="res_model">openacademy.course</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+
+        <!--Course Model Menu-->
+
+
+        <menuitem id="openacademy_main_menu" name="Open Academy"/>
+        <menuitem id="openacademy_sub_menu" name="Open academy" parent="openacademy_main_menu"/>
+        <menuitem id="course_menu" name="courses" parent="openacademy_sub_menu" action="action_list_courses"/>
+    </data>
+</odoo>

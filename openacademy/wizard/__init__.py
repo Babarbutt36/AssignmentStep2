@@ -1,0 +1,1 @@
+from  . import adding_the_attendees
